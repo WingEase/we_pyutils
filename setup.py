@@ -14,7 +14,7 @@ from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 
 setup(
     name="we_pyutils",
-    version="0.0.1",
+    version="0.0.2",
     keywords=("pip", "pyutils"),
     description="WingEase Python Utils",
     long_description="WingEase Python Utils",
@@ -27,5 +27,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     platforms="any",
-    install_requires=[]  # 这个项目需要的第三方库
+    install_requires=[  # 这个项目需要的第三方库
+        "requests",
+        "requests-toolbelt",
+        "django-environ",
+        "oss2",
+    ]
 )
