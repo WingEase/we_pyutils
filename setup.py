@@ -14,7 +14,7 @@ from setuptools import setup, find_packages  # 这个包没有的可以pip一下
 
 setup(
     name="we_pyutils",
-    version="0.0.2",
+    version="0.0.3",
     keywords=("pip", "pyutils"),
     description="WingEase Python Utils",
     long_description="WingEase Python Utils",

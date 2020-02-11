@@ -14,7 +14,7 @@ import os
 
 import requests
 
-DEFAULT_GET_MY_IP_URL = os.getenv('https://www.zenkr.com/tools/getip', '')
+DEFAULT_GET_MY_IP_URL = os.getenv('DEFAULT_GET_MY_IP_URL', 'https://www.zenkr.com/tools/getip')
 
 
 def get_my_ip(url=DEFAULT_GET_MY_IP_URL, tries=3, count=1):
