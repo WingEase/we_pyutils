@@ -9,6 +9,8 @@
 @Desc    :
 @license : Copyright (c) 2020 WingEase Technology Co.,Ltd. All Rights Reserved.
 """
+import re
+from decimal import Decimal, getcontext
 
 
 class Singleton(object):
@@ -143,3 +145,30 @@ class MarketPlaces(Singleton):
     @staticmethod
     def endpoints():
         return list(MWS_ENDPOINTS.values())
+
+
+def extract_star(star):
+    if star:
+        tmp = str.replace(star, ',', '.')
+        tmp = re.findall(r'(\d+[,.]*\d*)', tmp)
+        tmp = float(min(tmp))
+        return tmp
+    return None
+
+
+def extract_price(price, thousands_symbol=',', decimal_symbol='.', precision=2):
+    tmp = re.findall('([\d,.]+)', price)
+    if len(tmp) > 0:
+        tmp = tmp[0]
+        tmp = str.replace(tmp, thousands_symbol, '')
+        tmp = str.replace(tmp, decimal_symbol, '.')
+        getcontext().prec = precision
+        tmp = Decimal(tmp)
+        return tmp
+    return None
+
+
+if __name__ == '__main__':
+    e = extract_star('4.6 of 5')
+    # e = extract_price('1,199.88')
+    print(e)
