@@ -12,7 +12,7 @@
 import unittest
 from decimal import Decimal, getcontext
 
-from we_pyutils.t.amazon import extract_price, extract_star
+from we_pyutils.t.amazon import extract_price, extract_star, extract_review_count
 
 
 class TestAmazon(unittest.TestCase):
@@ -25,6 +25,11 @@ class TestAmazon(unittest.TestCase):
         self.assertEqual(0, extract_star('0 of 5'))
         self.assertEqual(5, extract_star('5 of 5'))
         self.assertEqual(None, extract_star(''))
+
+    def test_review_count(self):
+        self.assertEqual(int('1222333'), extract_review_count('1,222,333'))
+        self.assertEqual(int('1222333'), extract_review_count('1.222.333'))
+        self.assertEqual(None, extract_price(''))
 
     def test_extract_price(self):
         """Test method extract_price('£0.99')"""
