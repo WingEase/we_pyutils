@@ -156,6 +156,17 @@ def extract_star(star):
     return None
 
 
+def extract_review_count(review):
+    tmp = re.findall('([\d,.]+)', review)
+    if len(tmp) > 0:
+        tmp = tmp[0]
+        tmp = str.replace(tmp, ',', '')
+        tmp = str.replace(tmp, '.', '')
+        tmp = int(tmp)
+        return tmp
+    return None
+
+
 def extract_price(price, thousands_symbol=',', decimal_symbol='.', precision=2):
     tmp = re.findall('([\d,.]+)', price)
     if len(tmp) > 0:
