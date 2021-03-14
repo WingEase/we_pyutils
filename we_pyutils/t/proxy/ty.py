@@ -106,6 +106,13 @@ class ProxyTYClient(Singleton):
             time.sleep(10)
             return self.get_pack_info(count=count + 1)
 
+    def check_and_add_white_ip(self):
+        my_ip = get_my_ip()
+        if my_ip:
+            self.add_white_ip(my_ip)
+        time.sleep(5)
+        return my_ip
+
     def add_white_ip(self, ip):
         try:
             add_ip_url = f'{self.add_white_ip_url}?neek={self.account_name}&appkey={self._account_key}&white={ip}'
