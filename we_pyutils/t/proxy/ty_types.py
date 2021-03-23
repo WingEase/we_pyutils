@@ -45,6 +45,9 @@ class ProxyIPPool:
     def __init__(self, ip_dict: dict = None):
         self.ip_pool = {} if ip_dict is None else ip_dict
 
+    def __len__(self):
+        return len(self.ip_pool)
+
     def enlarge_ip_pool(self, ip_dict: dict):
         self.ip_pool.update(ip_dict)
 
@@ -113,5 +116,6 @@ if __name__ == '__main__':
     ip_pool = ProxyIPPool()
     ip_pool.add_ip(ip_1)
     ip_pool.enlarge_ip_pool(id)
+    l = len(ip_pool)
     ip_pool.remove_ip('127.0.0.2')
     pass
