@@ -75,8 +75,6 @@ class ProxyTYClient(Singleton):
                 return self.get_ips(pack_id, ip_nums, proxy_regions, times=times + 1)
             elif res_json.get('success', False):
                 ips = res_json.get('data', {})
-                for ip in ips:
-                    ip['used'] = 0
                 return ips
             return False
         except Exception as e:
@@ -84,15 +82,13 @@ class ProxyTYClient(Singleton):
             return False
 
     def get_pack_info(self, count=0):
-        if len(self.packs_info) > 0:
-            return self.packs_info
-        if count >= 10:
-            return False
-        self.get_pack_info_count += 1
-        print(f'Get Proxy Pack Info ({count} times)')
         try:
             if len(self.packs_info) > 0:
                 return self.packs_info
+            if count >= 10:
+                return False
+            self.get_pack_info_count += 1
+            print(f'Get Proxy Pack Info ({count} times)')
             gpi_url = f'{self.get_pack_info_url}?neek={self.neek}&appkey={self._appkey}'
             gpi_json = urlopen(gpi_url, timeout=4).read().decode('utf-8')
             self.packs_info = json.loads(gpi_json)
