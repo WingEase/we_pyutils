@@ -51,9 +51,15 @@ class ProxyIPPool:
 
     def enlarge_ip_pool(self, ip_dict: dict):
         self.ip_pool.update(ip_dict)
+        return self.ip_pool
 
     def add_ip(self, ip: ProxyIP):
         self.ip_pool[ip.ip] = ip
+        return ip
+
+    def update_ip(self, ip: ProxyIP):
+        self.ip_pool[ip.ip] = ip
+        return ip
 
     def remove_ip(self, ip: str):
         del self.ip_pool[ip]
