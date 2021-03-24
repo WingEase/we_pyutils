@@ -16,6 +16,7 @@ import time
 from urllib.request import urlopen
 
 from we_pyutils.t.ip import get_my_ip
+from .ty_types import ProxyIP
 
 DEFAULT_GET_IP_URL = os.getenv('PROXY_TY_GET_IP_URL', '')
 DEFAULT_GET_PACK_INFO_URL = os.getenv('PROXY_TY_GET_PACK_INFO_URL', '')
@@ -142,15 +143,14 @@ class ProxyTYClient(Singleton):
         else:
             return False
 
-    def check_ip_usable(self, ip_item):
-        if ip_item['used'] >= self.max_ip_used_times:
+    def check_ip_usable(self, ip: ProxyIP, expire_seconds: int = 120):
+        if ip.used_times >= self.max_ip_used_times:
             return False
-        expire_time = datetime.datetime.strptime(ip_item['expire_time'], '%Y-%m-%d %H:%M:%S')
         now = datetime.datetime.now()
-        if expire_time <= now:
+        if ip.expire_time <= now:
             return False
-        c = expire_time - now
-        if c.seconds < 120:
+        c = ip.expire_time - now
+        if c.seconds < expire_seconds:
             return False
         return True
 
