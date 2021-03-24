@@ -9,6 +9,7 @@
 @Desc    :
 @license : Copyright (c) 2021 WingEase Technology Co.,Ltd. All Rights Reserved.
 """
+import datetime
 import random
 
 
@@ -89,7 +90,7 @@ class ProxyIPDict:
                 if ip_item['port']:
                     ip.port = ip_item['port']
                 if ip_item['expire_time']:
-                    ip.expire_time = ip_item['expire_time']
+                    ip.expire_time = datetime.datetime.strptime(ip_item['expire_time'], '%Y-%m-%d %H:%M:%S')
                 if ip_item['city']:
                     ip.city = ip_item['city']
                 if ip_item['isp']:
