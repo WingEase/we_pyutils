@@ -65,9 +65,8 @@ class ProxyIPPool:
     def remove_ip(self, ip: str):
         del self.ip_pool[ip]
 
-    @staticmethod
-    def random_choice_ip(count=1) -> ProxyIP:
-        p = list(ip_pool.get_ip_pool().values())
+    def random_choice_ip(self, count=1) -> ProxyIP:
+        p = list(self.ip_pool.values())
         return random.choice(p)
         # return random.sample(p, count) # 选择多个IP（返回list）
 
