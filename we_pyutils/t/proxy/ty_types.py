@@ -9,6 +9,7 @@
 @Desc    :
 @license : Copyright (c) 2021 WingEase Technology Co.,Ltd. All Rights Reserved.
 """
+import random
 
 
 class ProxyIP:
@@ -56,6 +57,15 @@ class ProxyIPPool:
 
     def remove_ip(self, ip: str):
         del self.ip_pool[ip]
+
+    @staticmethod
+    def random_choice_ip(count=1) -> ProxyIP:
+        p = list(ip_pool.get_ip_pool().values())
+        return random.choice(p)
+        # return random.sample(p, count) # 选择多个IP（返回list）
+
+    def get_ip_pool(self):
+        return self.ip_pool
 
 
 class ProxyIPDict:
@@ -117,5 +127,7 @@ if __name__ == '__main__':
     ip_pool.add_ip(ip_1)
     ip_pool.enlarge_ip_pool(id)
     l = len(ip_pool)
-    ip_pool.remove_ip('127.0.0.2')
+    # ip_pool.remove_ip('127.0.0.2')
+    c1 = ip_pool.random_choice_ip()
+    c2 = ip_pool.random_choice_ip(2)
     pass
