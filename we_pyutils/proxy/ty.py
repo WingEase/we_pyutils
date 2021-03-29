@@ -154,35 +154,6 @@ class ProxyIPPool:
         return self.ip_pool
 
 
-class ProxyIPDict:
-    def __init__(self, ip_list: list):
-        self.ip_dict = {}
-        ip_list_initialized = self.init_ip_list(ip_list)
-        self.ip_dict.update(ip_list_initialized)
-
-    @staticmethod
-    def init_ip_list(ip_list: list) -> dict:
-        ip_dict = {}
-        if isinstance(ip_list, list):
-            for ip_item in ip_list:
-                ip = ProxyIP(ip_item['ip'])
-                if ip_item['port']:
-                    ip.port = ip_item['port']
-                if ip_item['expire_time']:
-                    ip.expire_time = datetime.datetime.strptime(ip_item['expire_time'], '%Y-%m-%d %H:%M:%S')
-                if ip_item['city']:
-                    ip.city = ip_item['city']
-                if ip_item['isp']:
-                    ip.isp = ip_item['isp']
-                ip_dict[ip_item['ip']] = ip
-        else:
-            raise ValueError
-        return ip_dict
-
-    def get_ip_dict(self):
-        return self.ip_dict
-
-
 class Singleton(object):
     def __new__(cls, *args, **kw):
         if not hasattr(cls, '_instance'):
