@@ -32,19 +32,65 @@ class ProxyIP:
     """
     自定义太阳代理IP格式
     """
+    ip: str
+    port: int
+    expire_time: datetime
+    city: str
+    isp: str
+    used_times: int
+    ip_dict: dict
 
-    def __init__(self, ip: str, port=None, expire_time=None, city=None, isp=None, used_times=0):
-        self.ip = ip
-        self.port = port
-        self.expire_time = expire_time
-        self.used_times = used_times
-        self.city = city
-        self.isp = isp
+    def __init__(self,
+                 ip: str = None,
+                 port: int = None,
+                 expire_time=None,
+                 city: str = None,
+                 isp: str = None,
+                 used_times: int = 0,
+                 ip_dict: dict = None
+                 ):
+        if ip_dict:
+            if 'ip' in ip_dict and ip_dict['ip']:
+                self.ip = ip_dict['ip']
+            if 'port' in ip_dict and ip_dict['port']:
+                self.port = int(ip_dict['port'])
+            if 'expire_time' in ip_dict and ip_dict['expire_time']:
+                self.expire_time = self.format_expire_time(ip_dict['expire_time'])
+            if 'city' in ip_dict and ip_dict['city']:
+                self.city = ip_dict['city']
+            if 'isp' in ip_dict and ip_dict['isp']:
+                self.isp = ip_dict['isp']
+            if 'used_times' in ip_dict and ip_dict['used_times']:
+                self.used_times = ip_dict['used_times']
+            else:
+                self.used_times = used_times
+        else:
+            if ip:
+                self.ip = ip
+            else:
+                raise ValueError
+            if port:
+                self.port = port if isinstance(port, int) else int(port)
+            else:
+                self.port = port
+            if isinstance(expire_time, str):
+                self.expire_time = self.format_expire_time(expire_time)
+            else:
+                self.expire_time = expire_time
+            if used_times:
+                self.used_times = used_times if isinstance(used_times, int) else int(used_times)
+            else:
+                self.used_times = used_times
+            self.city = city
+            self.isp = isp
 
     def __str__(self):
         return f'IP:{self.ip}:{self.port}, Used:{self.used_times} times.'
 
-    def get_ip(self):
+    def __eq__(self, obj):
+        return self.__dict__ == obj.__dict__
+
+    def use_ip_str(self):
         self.used_times_add()
         return self.proxy_str()
 
@@ -57,16 +103,35 @@ class ProxyIP:
     def used_times_add(self, times=1):
         self.used_times += times
 
+    @staticmethod
+    def format_expire_time(expire_time_str: str) -> datetime:
+        return datetime.datetime.strptime(expire_time_str, '%Y-%m-%d %H:%M:%S')
+
 
 class ProxyIPPool:
     def __init__(self, ip_dict: dict = None):
-        self.ip_pool = {} if ip_dict is None else ip_dict
+        self.ip_pool: dict = {} if ip_dict is None else ip_dict
 
     def __len__(self):
         return len(self.ip_pool)
 
+    def __eq__(self, obj):
+        return self.ip_pool == obj.ip_pool
+
+    def __dict__(self):
+        return self.ip_pool
+
     def enlarge_ip_pool(self, ip_dict: dict):
         self.ip_pool.update(ip_dict)
+        return self.ip_pool
+
+    def enlarge_ip_pool_b(self, ip_list: list):
+        ip_pool_tmp = {}
+        for ip_item in ip_list:
+            ip = ProxyIP(ip_dict=ip_item)
+            ipstr = ip.ip
+            ip_pool_tmp[ip.ip] = ip
+        self.ip_pool.update(ip_pool_tmp)
         return self.ip_pool
 
     def add_ip(self, ip: ProxyIP):
@@ -246,42 +311,6 @@ class ProxyTYClient(Singleton):
 
 
 if __name__ == '__main__':
-
-    # 模型测试
-    il = [
-        {
-            "city": "吉林省四平市",
-            "expire_time": "2021-03-22 16:38:04",
-            "ip": "221.9.134.198",
-            "isp": "联通",
-            "port": "4353"
-        },
-        {
-            "city": "吉林省四平市",
-            "expire_time": "2021-03-22 16:38:04",
-            "ip": "221.9.134.199",
-            "isp": "联通",
-            "port": "4353"
-        }
-    ]
-    ip_1 = ProxyIP('127.0.0.1', 4353)
-    t1 = ip_1.get_ip()
-    ip_2 = ProxyIP('127.0.0.2', 2222)
-    ip_3 = ProxyIP('127.0.0.3', 3333)
-    id = {
-        '127.0.0.2': ip_2,
-        '127.0.0.3': ip_3,
-    }
-    ip_dict = ProxyIPDict(il)
-    ip_pool = ProxyIPPool()
-    ip_pool.add_ip(ip_1)
-    ip_pool.enlarge_ip_pool(id)
-    l = len(ip_pool)
-    # ip_pool.remove_ip('127.0.0.2')
-    c1 = ip_pool.random_choice_ip()
-    c2 = ip_pool.random_choice_ip(2)
-    pass
-
     # 功能测试
     import environ
     from we_pyutils.env import GetEnv
