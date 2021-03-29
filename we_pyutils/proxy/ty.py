@@ -27,6 +27,12 @@ DEFAULT_ACCOUNT_KEY = os.getenv('PROXY_TY_ACCOUNT_KEY', '')
 DEFAULT_NEEK = os.getenv('PROXY_TY_NEEK', '')
 DEFAULT_APPKEY = os.getenv('PROXY_TY_APPKEY', '')
 
+ADD_WHITE_IP_URL = f'ty-http-d.hamir.net/index/white/add?neek={"ACCOUNT_NAME"}&appkey={"ACCOUNT_KEY"}&white={"IP"}'
+DEL_WHITE_IP_URL = f'ty-http-d.hamir.net/index/white/del?neek={"ACCOUNT_NAME"}&appkey={"ACCOUNT_KEY"}&white={"IP"}'
+LIST_WHITE_IP_URL = f'ty-http-d.hamir.net/index/index/white_list?neek={"NEEK"}&appkey={"APPKEY"}'
+GET_PACK_INFO_URL = f'ty-http-d.hamir.net/index/index/get_my_pack_info?neek={"NEEK"}&appkey={"APPKEY"}'
+GET_PACKAGE_BALANCE_URL = f'ty-http-d.hamir.net/index/index/get_my_package_balance?neek={"NEEK"}&appkey={"APPKEY"}&ac={"AC"}'
+
 
 class ProxyIP:
     """
