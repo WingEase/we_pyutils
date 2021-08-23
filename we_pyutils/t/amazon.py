@@ -24,80 +24,89 @@ class Singleton(object):
 # 参考：http://docs.developer.amazonservices.com/en_US/dev_guide/DG_Endpoints.html
 MARKETPLACES = {
     # North America
-    'BR': 'www.amazon.com.br',
-    'CA': 'www.amazon.ca',
-    'MX': 'www.amazon.com.mx',
-    'US': 'www.amazon.com',
+    'BR': 'www.amazon.com.br',  # Brazil
+    'CA': 'www.amazon.ca',  # Canada
+    'MX': 'www.amazon.com.mx',  # Mexico
+    'US': 'www.amazon.com',  # US
     # Europe region
-    'AE': 'www.amazon.ae',
-    'DE': 'www.amazon.de',
-    'ES': 'www.amazon.es',
-    'FR': 'www.amazon.fr',
-    'UK': 'www.amazon.co.uk',  # GB
-    'GB': 'www.amazon.co.uk',
-    'IN': 'www.amazon.in',
-    'IT': 'www.amazon.it',
-    'TR': 'www.amazon.com.tr',
+    'AE': 'www.amazon.ae',  # United Arab Emirates (U.A.E.)
+    'DE': 'www.amazon.de',  # Germany
+    'EG': '',  # Egypt
+    'ES': 'www.amazon.es',  # Spain
+    'FR': 'www.amazon.fr',  # France
+    'UK': 'www.amazon.co.uk',  # UK
+    'GB': 'www.amazon.co.uk',  # UK
+    'IN': 'www.amazon.in',  # India
+    'IT': 'www.amazon.it',  # Italy
+    'NL': 'www.amazon.nl',  # Netherlands
+    'PL': 'www.amazon.pl',  # Poland
+    'SA': 'www.amazon.sa',  # Saudi Arabia
+    'SE': 'www.amazon.se',  # Sweden
+    'TR': 'www.amazon.com.tr',  # Turkey
     # Far East region
-    'SG': 'www.amazon.sg',
-    'AU': 'www.amazon.com.au',
-    'JP': 'www.amazon.co.jp',
+    'SG': 'www.amazon.sg',  # Singapore
+    'AU': 'www.amazon.com.au',  # Australia
+    'JP': 'www.amazon.co.jp',  # Japan
     # China
-    'CN': 'www.amazon.cn',
-    # Others
-    'NL': 'www.amazon.nl',
+    'CN': 'www.amazon.cn',  # China
 }
 
 MARKETPLACE_IDS = {
     # North America
-    'BR': 'A2Q3Y263D00KWC',
-    'CA': 'A2EUQ1WTGCTBG2',
-    'MX': 'A1AM78C64UM0Y8',
-    'US': 'ATVPDKIKX0DER',
+    'BR': 'A2Q3Y263D00KWC',  # Brazil
+    'CA': 'A2EUQ1WTGCTBG2',  # Canada
+    'MX': 'A1AM78C64UM0Y8',  # Mexico
+    'US': 'ATVPDKIKX0DER',  # US
     # Europe region
-    'AE': 'A2VIGQ35RCS4UG',
-    'DE': 'A1PA6795UKMFR9',
-    'ES': 'A1RKKUPIHCS9HS',
-    'FR': 'A13V1IB3VIYZZH',
-    'UK': 'A1F83G8C2ARO7P',  # GB
-    'GB': 'A1F83G8C2ARO7P',
-    'IN': 'A21TJRUUN4KGV',
-    'IT': 'APJ6JRA9NG5V4',
-    'TR': 'A33AVAJ2PDY3EV',
+    'AE': 'A2VIGQ35RCS4UG',  # United Arab Emirates (U.A.E.)
+    'DE': 'A1PA6795UKMFR9',  # Germany
+    'EG': 'ARBP9OOSHTCHU',  # Egypt
+    'ES': 'A1RKKUPIHCS9HS',  # Spain
+    'FR': 'A13V1IB3VIYZZH',  # France
+    'UK': 'A1F83G8C2ARO7P',  # UK
+    'GB': 'A1F83G8C2ARO7P',  # UK
+    'IN': 'A21TJRUUN4KGV',  # India
+    'IT': 'APJ6JRA9NG5V4',  # Italy
+    'NL': 'A1805IZSGTT6HS',  # Netherlands
+    'PL': 'A1C3SOZRARQ6R3',  # Poland
+    'SA': 'A17E79C6D8DWNP',  # Saudi Arabia
+    'SE': 'A2NODRKZP88ZB9',  # Sweden
+    'TR': 'A33AVAJ2PDY3EV',  # Turkey
     # Far East region
-    'SG': 'A19VAU5U5O7RUS',
-    'AU': 'A39IBJ37TRP1C6',
-    'JP': 'A1VC38T7YXB528',
+    'SG': 'A19VAU5U5O7RUS',  # Singapore
+    'AU': 'A39IBJ37TRP1C6',  # Australia
+    'JP': 'A1VC38T7YXB528',  # Japan
     # China
     'CN': 'AAHKV2X7AFYLW',
-    # Others
-    'NL': '',
 }
 
 MWS_ENDPOINTS = {
     # North America
-    'BR': 'https://mws.amazonservices.com',
-    'CA': 'https://mws.amazonservices.ca',
-    'MX': 'https://mws.amazonservices.com.mx',
-    'US': 'https://mws.amazonservices.com',
+    'BR': 'https://mws.amazonservices.com',  # Brazil
+    'CA': 'https://mws.amazonservices.ca',  # Canada
+    'MX': 'https://mws.amazonservices.com.mx',  # Mexico
+    'US': 'https://mws.amazonservices.com',  # US
     # Europe region
-    'AE': 'https://mws.amazonservices.ae',
-    'DE': 'https://mws-eu.amazonservices.com',
-    'ES': 'https://mws-eu.amazonservices.com',
-    'FR': 'https://mws-eu.amazonservices.com',
-    'UK': 'https://mws-eu.amazonservices.com',  # GB
-    'GB': 'https://mws-eu.amazonservices.com',
-    'IN': 'https://mws.amazonservices.in',
-    'IT': 'https://mws-eu.amazonservices.com',
-    'TR': 'https://mws-eu.amazonservices.com',
+    'AE': 'https://mws.amazonservices.ae',  # United Arab Emirates (U.A.E.)
+    'DE': 'https://mws-eu.amazonservices.com',  # Germany
+    'EG': 'https://mws-eu.amazonservices.com',  # Egypt
+    'ES': 'https://mws-eu.amazonservices.com',  # Spain
+    'FR': 'https://mws-eu.amazonservices.com',  # France
+    'UK': 'https://mws-eu.amazonservices.com',  # UK
+    'GB': 'https://mws-eu.amazonservices.com',  # UK
+    'IN': 'https://mws.amazonservices.in',  # India
+    'IT': 'https://mws-eu.amazonservices.com',  # Italy
+    'NL': 'https://mws-eu.amazonservices.com',  # Netherlands
+    'PL': 'https://mws-eu.amazonservices.com',  # Poland
+    'SA': 'https://mws-eu.amazonservices.com',  # Saudi Arabia
+    'SE': 'https://mws-eu.amazonservices.com',  # Sweden
+    'TR': 'https://mws-eu.amazonservices.com',  # Turkey
     # Far East region
-    'SG': 'https://mws-fe.amazonservices.com',
-    'AU': 'https://mws.amazonservices.com.au',
-    'JP': 'https://mws.amazonservices.jp',
+    'SG': 'https://mws-fe.amazonservices.com',  # Singapore
+    'AU': 'https://mws.amazonservices.com.au',  # Australia
+    'JP': 'https://mws.amazonservices.jp',  # Japan
     # China
     'CN': 'https://mws.amazonservices.com.cn',
-    # Others
-    'NL': '',
 }
 
 
@@ -110,12 +119,17 @@ class MarketPlaces(Singleton):
     # Europe region
     AE = None
     DE = None
+    EG = None
     ES = None
     FR = None
     UK = None  # GB
     GB = None
     IN = None
     IT = None
+    NL = None
+    PL = None
+    SA = None
+    SE = None
     TR = None
     # Far East region
     SG = None
@@ -123,8 +137,6 @@ class MarketPlaces(Singleton):
     JP = None
     # China
     CN = None
-    # Others
-    NL = None
 
     def __init__(self):
         for country_code, domain in MARKETPLACES.items():
