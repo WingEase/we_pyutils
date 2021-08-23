@@ -2,3 +2,4 @@ requests
 requests-toolbelt
 django-environ
 oss2
+twine
