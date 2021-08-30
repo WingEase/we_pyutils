@@ -1,0 +1,11 @@
+- US:
+    id: US
+    marketplace_id: ATVPDKIKX0DER
+    name: United States
+    continent: AMERICA
+    url: www.amazon.com
+    url_seller: sellercentral.amazon.com
+    timezone:
+    currency: USD
+    mws_endpoint: mws.amazonservices.com
+
