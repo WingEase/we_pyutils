@@ -109,6 +109,15 @@ class Countries:
             data.append(getattr(self, id).mws_endpoint)
         return data
 
+    @property
+    def domains(self):
+        data = []
+        for id in self._ids:
+            url = getattr(self, id).url
+            if url:
+                data.append(url)
+        return data
+
 
 if __name__ == '__main__':
     countries = Countries()
