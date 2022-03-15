@@ -13,7 +13,7 @@ import json
 
 import requests
 
-from settings import get_wepyutils_setting
+from we_pyutils.settings import get_wepyutils_setting
 
 
 def get_my_ip(url: str = None, tries: int = 3, count: int = 1):
