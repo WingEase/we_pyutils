@@ -118,6 +118,14 @@ class Countries:
                 data.append(url)
         return data
 
+    @property
+    def domains_kv(self):
+        data = {}
+        for id in self._ids:
+            if (url := getattr(self, id).url):
+                data[id] = url
+        return data
+
 
 if __name__ == '__main__':
     countries = Countries()
