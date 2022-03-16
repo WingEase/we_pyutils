@@ -9,24 +9,35 @@
 @Desc    :
 @license : Copyright (c) 2020 WingEase Technology Co.,Ltd. All Rights Reserved.
 """
+import setuptools
 
-from setuptools import setup, find_packages  # 这个包没有的可以pip一下
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
-setup(
+setuptools.setup(
     name="we_pyutils",
-    version="0.2.6",
-    keywords=("pip", "pyutils"),
-    description="WingEase Python Utils",
-    long_description="WingEase Python Utils",
-    license="GPLv3",
-
-    url="https://github.com/WingEase/we_pyutils",  # 项目相关文件地址，一般是github
+    version="0.2.8",
     author="ZENKR",
     author_email="zenkr@qq.com",
-
-    packages=find_packages(),
-    include_package_data=True,
-    platforms="any",
+    keywords=("pip", "pyutils"),
+    description="WingEase Python Utils",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    license="GPLv3",
+    url="https://github.com/WingEase/we_pyutils",  # 项目相关文件地址，一般是github
+    classifiers=[
+        "Programming Language :: Python :: 3",
+    ],
+    package_dir={"": "src"},
+    packages=setuptools.find_packages(where="src"),
+    python_requires=">=3.8",
+    # include_package_data=True,
+    package_data={
+        "we_pyutils": [
+            "amazonmws/country.csv",
+        ],
+    },
+    # platforms="any",
     install_requires=[  # 这个项目需要的第三方库
         "requests",
         "requests-toolbelt",
