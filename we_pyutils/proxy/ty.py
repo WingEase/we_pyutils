@@ -16,6 +16,8 @@ import random
 import time
 from urllib.request import urlopen
 
+import requests
+
 from we_pyutils.t.ip import get_my_ip
 
 DEFAULT_GET_IP_URL = os.getenv('PROXY_TY_GET_IP_URL', '')
@@ -287,7 +289,133 @@ class ProxyTYClient(Singleton):
         return True
 
 
+class ProxyTYMixin():
+    domain: str = 'ty-http-d.hamir.net'
+    domain_tiqu: str = 'http.tiqu.alibabaapi.com'
+
+    neek: str = '525842'
+    neek_2: str = 'zenkr3'
+    appkey: str = '1b75f7ecf471b57137d4963ba80d05ac'
+    appkey_2: str = '922d9cf6d47fe26f9bd3e9d7e818514b'
+    packs_info: dict = {}
+
+    def _get_settings(self):
+        pass
+
+    def _request(self, url: str, /, *, method: str = 'get', params: dict = None, data: dict = None):
+        if method == 'get':
+            res = requests.get(url, params=(params or {}))
+            return res.json()
+        elif method == 'post':
+            res = requests.post(url, params=(params or {}), data=(data or {}))
+            return res.json()
+        return None
+
+    def list_white_ip(self) -> dict:
+        url = f'https://{self.domain}/index/index/white_list'
+        params = {
+            'neek': self.neek,
+            'appkey': self.appkey,
+        }
+        try:
+            res_json = self._request(url, params=params)
+            if res_json.get('msg') == 'ok':
+                res_json_data = res_json.get('data') or {'lists': []}
+                return res_json_data
+        except Exception as e:
+            print(f'List white ip FAILED.')
+        return {}
+
+    def add_white_ip(self, ip: list) -> bool:
+        join_ip = ','.join(ip)
+        url = f'https://{self.domain}/index/white/add'
+        params = {
+            'neek': self.neek_2,
+            'appkey': self.appkey_2,
+            'white': join_ip
+        }
+        try:
+            res_json = self._request(url, params=params)
+            if res_json.get('success'):
+                print(f'Add white ip:{join_ip}')
+                return True
+        except Exception as e:
+            print(f'Add white ip ({join_ip}) FAILED.')
+            print(e)
+            return False
+        return False
+
+    def get_pack_info(self, count=0):
+        url = f'https://{self.domain}/index/index/get_my_pack_info'
+        params = {
+            'neek': self.neek,
+            'appkey': self.appkey,
+        }
+        try:
+            if len(self.packs_info) > 0:
+                return self.packs_info
+            if count >= 10:
+                return None
+            # self.get_pack_info_count += 1
+            print(f'Get Proxy Pack Info ({count} times)')
+            res_json = self._request(url, params=params)
+            return res_json
+        except Exception as e:
+            print(f'No Available Packs!!! 10s Later Retry...({count} times)')
+            print(e)
+            my_ip = get_my_ip()
+            if my_ip:
+                self.add_white_ip(my_ip)
+            time.sleep(10)
+            return self.get_pack_info(count=count + 1)
+
+    def get_ips(self, pack_id: int, ip_nums: int = 1, proxy_regions: list = None, times: int = 0):
+        if times >= 10:
+            return False
+        if proxy_regions is None:
+            proxy_regions = []
+        proxy_regions_join = ','.join(proxy_regions)
+        # 参数文档：https://www.tyhttp.com/help/218.html
+        url = f'http://{self.domain_tiqu}/getip'
+        params = {
+            'num': ip_nums,  # 提取的IP数量
+            'type': 2,  # 数据格式(1:TXT 2:JSON 3:html)
+            'pack': pack_id,  # 用户套餐ID
+            'port': 11,  # 代理协议(1表示HTTP 11表示HTTPS 2表示SOCK5)
+            'ts': 1,  # 是否显示IP过期时间(1显示 2不显示)
+            'ys': 1,  # 是否显示IP运营商(1显示 2不显示)
+            'cs': 1,  # 是否显示位置(1显示 2不显示)
+            'lb': 1,  # 分隔符(1:\r\n 2:/br 3:\r 4:\n 5:\t 6 :自定义)
+            'pb': 4,  #
+            'regions': proxy_regions_join,  #
+            # 'pro': 420000,  # 代表省份
+            # 'city': 420000,  # 代表城市
+        }
+        try:
+            print(f'Get new proxy IPs ... ({times} times)')
+            res_json = self._request(url, params=params)
+            if res_json.get('code', -1) > 0:
+                my_ip = get_my_ip()
+                if my_ip:
+                    self.add_white_ip(my_ip)
+                time.sleep(5)
+                return self.get_ips(pack_id, ip_nums, proxy_regions, times=times + 1)
+            elif res_json.get('success', False):
+                ips = res_json.get('data', [])
+                return ips
+            return False
+        except Exception as e:
+            print(f'Get new proxy IPs FAILED. {e}')
+            return False
+
+
 if __name__ == '__main__':
+    ty = ProxyTYMixin()
+    # list_white_ip = ty.list_white_ip()
+    # add_white_ip = ty.add_white_ip(['111.197.248.175'])
+    # get_pack_info = ty.get_pack_info()
+    get_ips = ty.get_ips(51965, 1)
+    pass
     # 功能测试
     import environ
     from we_pyutils.env import GetEnv
