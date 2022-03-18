@@ -9,6 +9,7 @@
 @Desc    :
 @license : Copyright (c) 2022 WingEase Technology Co.,Ltd. All Rights Reserved.
 """
+import threading
 from functools import wraps
 
 
@@ -25,7 +26,7 @@ class Singleton(object):
         return cls._instance
 
 
-def singleton(cls):
+def singleton_simple(cls):
     """
     单例模式装饰器（非线程安全）
     :param cls:
@@ -42,8 +43,32 @@ def singleton(cls):
     return _singleton
 
 
+def singleton(threadsafe=False):
+    """
+    单例模式装饰器（可选线程安全）
+    :param cls:
+    :return:
+    """
+    _instance = {}
+    thread_lock = threading.Lock()
+
+    def singleton_decorator(cls):
+        @wraps(cls)
+        def _singleton(*args, **kwargs):
+            if threadsafe:
+                with thread_lock:
+                    if cls not in _instance:
+                        _instance[cls] = cls(*args, **kwargs)
+                    return _instance[cls]
+            else:
+                if cls not in _instance:
+                    _instance[cls] = cls(*args, **kwargs)
+                return _instance[cls]
+
+        return _singleton
+
+    return singleton_decorator
+
+
 if __name__ == '__main__':
-    @singleton
-    class A:
-        t = 1
-        pass
+    pass
