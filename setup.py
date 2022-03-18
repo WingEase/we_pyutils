@@ -16,7 +16,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="we_pyutils",
-    version="0.2.8",
+    version="0.2.9",
     author="ZENKR",
     author_email="zenkr@qq.com",
     keywords=("pip", "pyutils"),
