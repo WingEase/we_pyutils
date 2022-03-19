@@ -389,7 +389,7 @@ class ProxyTYMixin():
             'num': ip_nums,  # 提取的IP数量
             'type': 2,  # 数据格式(1:TXT 2:JSON 3:html)
             'pack': pack_id,  # 用户套餐ID
-            'port': 11,  # 代理协议(1表示HTTP 11表示HTTPS 2表示SOCK5)
+            'port': 1,  # 代理协议(1表示HTTP 11表示HTTPS 2表示SOCK5)
             'ts': 1,  # 是否显示IP过期时间(1显示 2不显示)
             'ys': 1,  # 是否显示IP运营商(1显示 2不显示)
             'cs': 1,  # 是否显示位置(1显示 2不显示)
