@@ -35,6 +35,14 @@ LIST_WHITE_IP_URL = f'ty-http-d.hamir.net/index/index/white_list?neek={"NEEK"}&a
 GET_PACK_INFO_URL = f'ty-http-d.hamir.net/index/index/get_my_pack_info?neek={"NEEK"}&appkey={"APPKEY"}'
 GET_PACKAGE_BALANCE_URL = f'ty-http-d.hamir.net/index/index/get_my_package_balance?neek={"NEEK"}&appkey={"APPKEY"}&ac={"AC"}'
 
+TY_DOMAIN: str = os.getenv('PROXY_TY_DOMAIN', 'ty-http-d.hamir.net')
+TY_TIQU_DOMAIN: str = os.getenv('PROXY_TY_TIQU_DOMAIN', 'http.tiqu.alibabaapi.com')
+
+TY_ACCOUNT_NAME: str = os.getenv('PROXY_TY_ACCOUNT_NAME', '')
+TY_ACCOUNT_KEY: str = os.getenv('PROXY_TY_ACCOUNT_KEY', '')
+TY_NEEK: str = os.getenv('PROXY_TY_NEEK', '')
+TY_APPKEY: str = os.getenv('PROXY_TY_APPKEY', '')
+
 
 class ProxyIP:
     """
@@ -290,13 +298,13 @@ class ProxyTYClient(Singleton):
 
 
 class ProxyTYMixin():
-    domain: str = 'ty-http-d.hamir.net'
-    domain_tiqu: str = 'http.tiqu.alibabaapi.com'
+    domain: str
+    domain_tiqu: str
 
-    neek: str = '525842'
-    neek_2: str = 'zenkr3'
-    appkey: str = '1b75f7ecf471b57137d4963ba80d05ac'
-    appkey_2: str = '922d9cf6d47fe26f9bd3e9d7e818514b'
+    neek: str
+    account_name: str
+    appkey: str
+    account_key: str
     packs_info: dict = {}
 
     def _get_settings(self):
@@ -330,8 +338,8 @@ class ProxyTYMixin():
         join_ip = ','.join(ip)
         url = f'https://{self.domain}/index/white/add'
         params = {
-            'neek': self.neek_2,
-            'appkey': self.appkey_2,
+            'neek': self.account_name,
+            'appkey': self.account_key,
             'white': join_ip
         }
         try:
