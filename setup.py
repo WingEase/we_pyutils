@@ -16,7 +16,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="we_pyutils",
-    version="0.2.11",
+    version="0.2.12",
     author="ZENKR",
     author_email="zenkr@qq.com",
     keywords=("pip", "pyutils"),
@@ -41,6 +41,7 @@ setuptools.setup(
     install_requires=[  # 这个项目需要的第三方库
         "requests",
         "requests-toolbelt",
+        "Django",
         "django-environ",
         "oss2",
     ]
