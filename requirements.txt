@@ -13,7 +13,7 @@ charset-normalizer==2.0.4
 colorama==0.4.4
 crcmod==1.7
 cryptography==3.4.7
-Django==4.0.3
+Django==4.0.4
 django-environ==0.4.5
 docutils==0.17.1
 idna==3.2
