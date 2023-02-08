@@ -12,7 +12,7 @@ chardet==4.0.0
 charset-normalizer==2.0.4
 colorama==0.4.4
 crcmod==1.7
-cryptography==3.4.7
+cryptography==39.0.1
 Django==4.0.3
 django-environ==0.4.5
 docutils==0.17.1
